@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %><!DOCTYPE html>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +42,7 @@
         </div>
         <div class="row">
             <div class="span8">
-                <p>${postBean.content}</p>
+                <p>${posts.content}</p>
                 <p>
                     <i class="icon-user"></i> by <a href="#">${user.username}</a>
                     | <i class="icon-calendar"></i> April 09th, 2021
@@ -54,10 +55,9 @@
 <hr>
 <h4>Comments</h4>
 <c:forEach var="comment" items="${comments}">
-
 <div class="card mb-3">
     <div class="card-body">
-        <p class="card-title">${user.username}</p>
+        <p class="card-title">${comment.username}</p>
         <p class="card-text"><c:out value="${comment.content}" /></p>
         <i class="icon-comment"></i> <a href="#"><c:out value="${comment.like_counter}" /> Likes</a>
     </div>
