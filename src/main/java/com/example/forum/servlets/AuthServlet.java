@@ -34,11 +34,11 @@ public class AuthServlet extends HttpServlet {
             postBean = postDAO.getPost(1);
             user = userDao.checkLogin(username,password);
             HttpSession session = request.getSession();
-            request.setAttribute("comments", commentBeanList);
+            session.setAttribute("comments", commentBeanList);
             session.setAttribute("user", user);
             session.setMaxInactiveInterval(30*60);
             Cookie userName = new Cookie("username", username);
-            request.setAttribute("posts", postBean);
+            session.setAttribute("posts", postBean);
             userName.setMaxAge(30*60);
             response.addCookie(userName);
 

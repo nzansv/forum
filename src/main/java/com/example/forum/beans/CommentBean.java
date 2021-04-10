@@ -8,7 +8,6 @@ public class CommentBean implements java.io.Serializable {
     private String content = null;
     private Integer user_id;
     private Integer post_id;
-    private List<CommentBean> commentBeans;
 
     public Integer getPost_id() {
         return post_id;
@@ -28,20 +27,19 @@ public class CommentBean implements java.io.Serializable {
         this.post_id = post_id;
     }
 
+    public CommentBean(int like_counter, String content, Integer user_id, Integer post_id) {
+        this.like_counter = like_counter;
+        this.content = content;
+        this.user_id = user_id;
+        this.post_id = post_id;
+    }
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public List<CommentBean> getCommentBeans() {
-        return commentBeans;
-    }
-
-    public void setCommentBeans(List<CommentBean> commentBeans) {
-        this.commentBeans = commentBeans;
     }
 
     public Integer getUser_id() {

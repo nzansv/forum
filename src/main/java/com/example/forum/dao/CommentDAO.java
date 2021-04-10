@@ -39,4 +39,23 @@ public class CommentDAO {
 
         return commentBeanList;
     }
+
+    public boolean insertCourse(CommentBean commentBean) throws SQLException, ClassNotFoundException {
+
+        Class.forName("org.postgresql.Driver");
+
+        String sql = "INSERT INTO comments (content, like_counter, user_id, post_id ) VALUES (?, ?, ?, ?)";
+        Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/forum","postgres", "123");
+
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, commentBean.getContent());
+        statement.setInt(2, commentBean.getLike_counter());
+        statement.setInt(3, commentBean.getUser_id());
+        statement.setInt(4, commentBean.getPost_id());
+
+        boolean rowInserted = statement.executeUpdate() > 0;
+        statement.close();
+        connection.close();;
+        return rowInserted;
+    }
 }

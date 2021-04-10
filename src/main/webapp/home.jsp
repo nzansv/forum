@@ -57,12 +57,30 @@
 <c:forEach var="comment" items="${comments}">
 <div class="card mb-3">
     <div class="card-body">
-        <p class="card-title">${comment.username}</p>
+        <p class="card-title"><a href="#">${user.username}</a></p>
         <p class="card-text"><c:out value="${comment.content}" /></p>
-        <i class="icon-comment"></i> <a href="#"><c:out value="${comment.like_counter}" /> Likes</a>
+        <a href="#"><c:out value="${comment.like_counter}" /> Likes</a>
     </div>
 </div>
 </c:forEach>
+
+<hr>
+<h4>Add Comment</h4>
+    <div class="card mb-3">
+        <form action="CommentServlet" method="post">
+            <div class="mb-3">
+                <input style="font-size: 18px" type="text" name="content" class="form-control" placeholder="write something..." >
+            </div>
+            <input name="like_counter" type="hidden" value="0" >
+            <input name="user_id" type="hidden" value="1" >
+            <input name="post_id" type="hidden" value="1" >
+            <center>
+                <div class="d-grid gap-2 d-md-block">
+                    <button type="submit"  value="Save" class="btn"  style="background: #F5F5F5;font-size: 11px; padding: 15px 32px 15px 32px;" >add comment</button>
+                </div>
+            </center>
+        </form>
+    </div>
 </body>
 </html>
 
