@@ -35,11 +35,11 @@
             <h4 class="d-flex justify-content-center">Login</h4>
             <div class="mb-3">
                 <label class="form-label">Username:</label>
-                <input type="text" name="username" class="form-control" value="bob">
+                <input type="text" name="username" class="form-control" >
             </div>
             <div class="mb-3">
                 <label class="form-label">Password:</label>
-                <input type="password" name="password" class="form-control" value="123" >
+                <input type="password" name="password" class="form-control"  >
             </div>
             <center>
                 <div class="d-grid gap-2 d-md-block">

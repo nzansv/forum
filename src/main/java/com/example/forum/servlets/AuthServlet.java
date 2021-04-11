@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(value = "/auth")
@@ -25,23 +26,26 @@ public class AuthServlet extends HttpServlet {
         CommentDAO commentDAO = new CommentDAO();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        List<CommentBean> commentBeanList = null;
 
         UserBean user = null;
         PostBean postBean = null;
         try {
-            commentBeanList = commentDAO.getComments();
             postBean = postDAO.getPost(1);
+            List<CommentBean> commentBeanList = commentDAO.getComments();
+
+            for (CommentBean commentBean : commentBeanList){
+                commentBean.setUserBean(userDao.getUser(commentBean.getUser_id()));
+            }
+
             user = userDao.checkLogin(username,password);
+            postBean.setComments(commentBeanList);
             HttpSession session = request.getSession();
-            session.setAttribute("comments", commentBeanList);
             session.setAttribute("user", user);
             session.setMaxInactiveInterval(30*60);
             Cookie userName = new Cookie("username", username);
-            session.setAttribute("posts", postBean);
+            request.setAttribute("posts", postBean);
             userName.setMaxAge(30*60);
             response.addCookie(userName);
-
 
         } catch (SQLException | ClassNotFoundException ex) {
             throw new ServletException(ex);

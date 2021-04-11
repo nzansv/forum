@@ -1,13 +1,20 @@
 package com.example.forum.beans;
 
-import java.util.List;
-
 public class CommentBean implements java.io.Serializable {
     private Integer id;
     private int like_counter = 0;
     private String content = null;
     private Integer user_id;
     private Integer post_id;
+    private UserBean userBean;
+
+    public UserBean getUserBean() {
+        return userBean;
+    }
+
+    public void setUserBean(UserBean userBean) {
+        this.userBean = userBean;
+    }
 
     public Integer getPost_id() {
         return post_id;

@@ -1,5 +1,7 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %><!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.example.forum.beans.CommentBean" %>
+<%@ page import="com.example.forum.beans.UserBean" %>
+<!DOCTYPE html>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,25 +56,36 @@
 </div>
 <hr>
 <h4>Comments</h4>
-<c:forEach var="comment" items="${comments}">
+
+<jsp:useBean id="posts" class="com.example.forum.beans.PostBean" scope="request"/>
+<jsp:setProperty name="posts" property="*"/>
+<jsp:useBean id="user" class="com.example.forum.beans.UserBean" scope="session"/>
+<jsp:setProperty name="user" property="*"/>
+<% for (CommentBean comment: posts.getComments()) { %>
 <div class="card mb-3">
     <div class="card-body">
-        <p class="card-title"><a href="#">${user.username}</a></p>
-        <p class="card-text"><c:out value="${comment.content}" /></p>
-        <a href="#"><c:out value="${comment.like_counter}" /> Likes</a>
+        <p class="card-title"><a href="#"><%=comment.getUserBean().getUsername()%></a></p>
+        <p class="card-text"><%=comment.getContent()%></p>
+        <form action="like" method="get">
+            <input type="hidden" name="commentId" value="<%=comment.getId()%>">
+            <button type="submit" class="btn btn-outline-primary" name="like" value="true" class="btn">Likes <%=comment.getLike_counter()%></button>
+        </form>
     </div>
 </div>
-</c:forEach>
 
+<% } %>
+
+
+<% if(user.getId()!=null) {%>
 <hr>
 <h4>Add Comment</h4>
     <div class="card mb-3">
-        <form action="CommentServlet" method="post">
+        <form action="addComment" method="post">
             <div class="mb-3">
                 <input style="font-size: 18px" type="text" name="content" class="form-control" placeholder="write something..." >
             </div>
             <input name="like_counter" type="hidden" value="0" >
-            <input name="user_id" type="hidden" value="1" >
+            <input name="user_id" type="hidden" value="${user.id}" >
             <input name="post_id" type="hidden" value="1" >
             <center>
                 <div class="d-grid gap-2 d-md-block">
@@ -81,6 +94,7 @@
             </center>
         </form>
     </div>
+<% }%>
 </body>
 </html>
 
